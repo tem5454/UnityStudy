@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4943598219037193435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4943598219037193433}
+  - component: {fileID: 4943598219037193434}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4943598219037193433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943598219037193435}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08970094, y: 0.34234628, z: 1.9499264}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4943598219037193434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943598219037193435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e39b69f6eebfc4a8f677e3013e0375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectContainer:
+    keys: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+    values:
+    - effectName: 
+      original: {fileID: 6420864729612400574, guid: 102b68f98c6b4654190e374b4bf06e27,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 3548608431109976094, guid: 131e198ec76a4b74c89529c4a9cff352,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 1079540351087332436, guid: 55559c6d976d62c4d90d78fbf644ad30,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 2429581471904684851, guid: 0c0a8c9694d5f1247b6ca47bb6b18b04,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 7877621860616212000, guid: 7f9388faea956ea4eb4571a4e0903a9f,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 5560897542219484926, guid: 8877c12a7fc5c2a49b1bee213ba5ca3c,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 6151875738460453126, guid: 9cfb416395d31a7418e4d4d255fa8428,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 2489255999140887784, guid: b0e92d65f573d4b40a0d7d3a6d5a267f,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 2601496431440056039, guid: aca0ceef0e6828b4f99b35973fc333d6,
+        type: 3}
+      poolSize: 30
+    - effectName: 
+      original: {fileID: 7941025576394670471, guid: 9e9bb159d320cd24c941b24e4cd3a8de,
+        type: 3}
+      poolSize: 20
