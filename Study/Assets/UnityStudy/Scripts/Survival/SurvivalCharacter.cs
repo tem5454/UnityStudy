@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace survival
 {
@@ -31,13 +32,127 @@ namespace survival
 
         public ActionAreaBase action;
 
+        public GameObject interactUI;
+        public GameObject DialogUI;
+        public Text DialogText;
+
+        public bool IsInteractable;
+        public bool IsInteractProgress;        
+
+        public NPCDialog.NPCBase InteractableNPC;
+
+        public int DialogIndex;
+
+
+        private void Start()
+        {
+            interactUI.SetActive(false);
+            DialogUI.SetActive(false);
+            IsInteractable = false;
+            IsInteractProgress = false;
+        }
+
         void Update()
         {
             Move();
+            Interact();
+
+            if(IsInteractProgress == false)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    OnClick(Input.mousePosition);
+                }
+            }                        
+        }
+
+        public void OnClick(Vector3 pos)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(pos);
+            if(Physics.Raycast(ray, out RaycastHit hitInfo ,50))
+            {
+                if(hitInfo.collider.CompareTag("NPC"))
+                {
+                    interactUI.SetActive(true);
+                    IsInteractable = true;
+                    InteractableNPC = hitInfo.collider.GetComponent<NPCDialog.NPCBase>();
+                    DialogIndex = 0;
+                }
+                else
+                {
+                    interactUI.SetActive(false);
+                }
+            }
+        }
+
+        public void Interact()
+        {
+            if(Input.GetKeyDown(KeyCode.F))
+            {                
+                if (IsInteractable == false)
+                {
+                    return;
+                }
+
+                if(InteractableNPC != null)
+                {
+                    DialogUI.SetActive(true);
+                    if (IsInteractProgress == false)
+                    {
+                        StartCoroutine(CoAutoDialogText());
+                    }
+                    IsInteractProgress = true;
+                }               
+            }
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                if(IsInteractProgress)
+                {
+                    IsInteractProgress = false;
+                    DialogUI.SetActive(false);
+                    DialogText.text = string.Empty;
+
+                    interactUI.SetActive(false);
+                }                
+            }
+
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if(IsInteractProgress)
+                {                    
+                    ++DialogIndex;
+                    if (DialogIndex < InteractableNPC.DialogText.Count)
+                    {
+                        DialogText.text = InteractableNPC.DialogText[DialogIndex];
+                    }
+                }
+            }
+        }
+
+        public IEnumerator CoAutoDialogText()
+        {
+            while(DialogIndex < InteractableNPC.DialogText.Count)
+            {
+                yield return null;
+
+                DialogText.text = InteractableNPC.DialogText[DialogIndex];
+
+                yield return new WaitForSeconds(2.0f);
+
+                ++DialogIndex;
+            }
+
+            IsInteractProgress = false;
+            interactUI.SetActive(false);
+            DialogUI.SetActive(false);
         }
 
         public void Move()
         {
+            if (IsInteractProgress)
+                return; 
+
             if (IsAction)
                 return;
 
@@ -46,25 +161,25 @@ namespace survival
             if (Input.GetKey(KeyCode.W))
             {
                 IsMove = true;
-                transform.position += Vector3.forward * Speed * Time.deltaTime;
+                transform.position += transform.forward * Speed * Time.deltaTime;
             }
 
             if (Input.GetKey(KeyCode.S))
             {
                 IsMove = true;
-                transform.position += Vector3.back * Speed * Time.deltaTime;
+                transform.position += (transform.forward * -1) * Speed * Time.deltaTime;
             }
 
             if (Input.GetKey(KeyCode.A))
             {
                 IsMove = true;
-                transform.position += Vector3.left * Speed * Time.deltaTime;
+                transform.position += (transform.right * -1) * Speed * Time.deltaTime;
             }
 
             if (Input.GetKey(KeyCode.D))
             {
                 IsMove = true;
-                transform.position += Vector3.right * Speed * Time.deltaTime;
+                transform.position += transform.right * Speed * Time.deltaTime;
             }
 
             if(Input.GetKey(KeyCode.Mouse0))
@@ -79,6 +194,14 @@ namespace survival
             }
 
             CharacterAnimator.SetBool("IsMove", IsMove);
+        }
+
+        public void NotifyInteractNPC(NPCDialog.NPCBase npcBase, bool isInOut)
+        {
+            interactUI.SetActive(isInOut);
+            IsInteractable = isInOut;
+            InteractableNPC = npcBase;
+            DialogIndex = 0;
         }
 
         public void TriggerAction(ActionAreaBase action)

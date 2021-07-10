@@ -608,6 +608,7 @@ MonoBehaviour:
   IsAction: 0
   IsMove: 0
   HandItemRoot: {fileID: 844552720387965012}
+  ModelTransform: {fileID: 6401417569980343196}
   action: {fileID: 0}
 --- !u!95 &559075603
 Animator:
